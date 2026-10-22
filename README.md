@@ -1,4 +1,4 @@
-# neuralfa
+# RK_smoother
 
 Neural architectures for learning multigrid components via local Fourier
 analysis.
@@ -11,7 +11,7 @@ The active paper uses the validated 1D implementation. The 2D/D4/GNN/attention
 modules are prototypes, not evidence for the paper's numerical claims.
 
 ```bash
-uv run python -m neuralfa.review_validation
+uv run python -m RK_smoother.review_validation
 ```
 
 This reads the saved weights without retraining, solves the convex polynomial
@@ -29,24 +29,24 @@ No two-grid quantity alone certifies the full multilevel cycle.
 ## Quick start
 
 ```bash
-git clone git@github.com:YTFYTF/neuralfa.git
-cd neuralfa
+git clone git@github.com:YTFYTF/RK_smoother.git
+cd RK_smoother
 uv sync --locked --group dev         # install the locked dependencies and tests
-uv run python -m neuralfa.demo      # run all demos
+uv run python -m RK_smoother.demo      # run all demos
 uv run pytest                       # run the test suite
-uv run python -m neuralfa.training  # train stencil->RK-parameter nets on the
+uv run python -m RK_smoother.training  # train stencil->RK-parameter nets on the
                                     # two-grid LFA norm loss (~2 min on CPU);
                                     # writes results/ and figs/tg_learned_*.png
-uv run python -m neuralfa.solver_validation
+uv run python -m RK_smoother.solver_validation
                                     # run actual multigrid cycles with the
                                     # trained nets; measured vs LFA-predicted
                                     # factors, inflow-BC robustness, GMRES
                                     # counts -> figs/solver_validation.png
-uv run python -m neuralfa.ablation  # spectral-radius vs norm training
+uv run python -m RK_smoother.ablation  # spectral-radius vs norm training
                                     # objective: LFA curves, worst-case
                                     # V-cycle transients ||E^k||, GMRES
                                     # -> figs/ablation_rho_vs_norm.png
-uv run python -m neuralfa.advdiff   # advection-diffusion: one network over
+uv run python -m RK_smoother.advdiff   # advection-diffusion: one network over
                                     # the (CFL, Peclet) plane vs per-instance
                                     # oracle + solver check
                                     # -> figs/advdiff_learned.png
@@ -81,7 +81,7 @@ independent ground truths:
 ## Package structure
 
 ```
-src/neuralfa/
+src/RK_smoother/
   __init__.py         # public API re-exports
   multigrid.py        # multigrid primitives (assembly, V-cycle, smoothers)
   lfa.py              # local Fourier analysis loss functions
@@ -182,7 +182,7 @@ learns the map from the model-problem stencil to RK smoother parameters by
 minimising the log of a sampled two-grid norm.
 
 ```bash
-uv run python -m neuralfa.training
+uv run python -m RK_smoother.training
 ```
 
 trains a 2-stage and a 3-stage network (~1 minute each on CPU, deterministic
