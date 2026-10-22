@@ -29,7 +29,7 @@ No two-grid quantity alone certifies the full multilevel cycle.
 ## Quick start
 
 ```bash
-git clone git@github.com:Tripudium/neuralfa.git
+git clone git@github.com:YTFYTF/neuralfa.git
 cd neuralfa
 uv sync --locked --group dev         # install the locked dependencies and tests
 uv run python -m neuralfa.demo      # run all demos
